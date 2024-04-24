@@ -7,7 +7,7 @@ import java.awt.event.*;
 public class MyFrame extends JFrame {
     public MyFrame(){
         setTitle("WidgetTest");
-        setSize(700,700);
+        setSize(300,300);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
@@ -23,20 +23,25 @@ class MyPanel extends JPanel{
     class MouseHandler extends MouseAdapter{
         public void mouseClicked(MouseEvent ev){
             if(ev.getX() <= 150) current = Color.BLACK;
-            if(ev.getX() >= 150) current = Color.BLUE;
+            if(ev.getY() >= 150) current = Color.BLUE;
             repaint();
         }
     }
     MyPanel(){
-        button.addActionListener(new ButtonHandler());
-        addMouseListener(new MouseHandler());
-        add(button);
-        button.setFocusable(false);
+        JButton yellowButton = new JButton("Change to Yellow");
+        yellowButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                current = Color.YELLOW;
+                repaint();
+            }
+        });
+        add(yellowButton);
     }
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         g.setColor(current);
-        g.fillRect(0, 100, 400, 400);
+        g.fillRect(0, 100, 100, 100);
     }
 }
 
